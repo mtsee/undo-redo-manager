@@ -16,7 +16,7 @@ module.exports = merge(baseConfig, {
     // common: [] // 打包公共资源
   },
   output: {
-    publicPath: '/',
+    publicPath: './',
     path: distPath,
     filename: `assets/js/[name].${version}.${hash}.js`
   },

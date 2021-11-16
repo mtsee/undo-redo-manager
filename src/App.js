@@ -62,6 +62,13 @@ export default function App() {
         <Button onClick={onUndo}>undo</Button>
         <Button onClick={onRedo}>redo</Button>
       </Space>
+      <br />
+      <br />
+      <div>
+        <a target="_blank" rel="noreferrer" href="https://github.com/mtsee/undo-redo-manager">
+          https://github.com/mtsee/undo-redo-manager
+        </a>
+      </div>
     </div>
   );
 }
