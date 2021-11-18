@@ -1,26 +1,31 @@
-const { resolve, srcPath, version, hash, distPath } = require('./config');
-
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const baseConfig = require('./webpack.config.base');
-const { merge } = require('webpack-merge');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { resolve, srcPath } = require('./config');
+// webpack 配置文档
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { merge } = require('webpack-merge');
+const baseConfig = require('./webpack.config.base');
 const LessPluginFunctions = require('less-plugin-functions');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-module.exports = merge(baseConfig, {
-  devtool: false,
+
+const pluginConf = {
+  mode: 'production',
+  // mode: 'development',
   entry: {
-    main: resolve('../src/index.js') // 主网站入口
-    // common: [] // 打包公共资源
+    index: resolve('../src/UndoRedoManager.js') // 插件入口
   },
   output: {
-    publicPath: './',
-    path: distPath,
-    filename: `assets/js/[name].${version}.${hash}.js`
+    publicPath: '/',
+    path: resolve('../umd'),
+    filename: `index.js`,
+    libraryTarget: 'umd'
   },
-  mode: 'production',
+  externals: {},
+  resolve: {
+    extensions: ['.js', '.jsx', '.esm', '.css', '.less'],
+    alias: {}
+  },
   module: {
     rules: [
       {
@@ -74,22 +79,22 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `assets/css/[name].${version}${hash}.css`
-    }),
-    new CleanWebpackPlugin({
-      root: __dirname.replace('scripts', 'dist')
+      filename: `style.css`
     }),
     new FileManagerPlugin({
       events: {
         onEnd: {
-          copy: [{ source: resolve('../public/assets'), destination: resolve('../dist/assets') }]
+          copy: [
+            { source: resolve('../package_umd.json'), destination: resolve('../umd/package.json') },
+            { source: resolve('../README.md'), destination: resolve('../umd/README.md') }
+          ]
         }
       }
     }),
-    new HtmlWebpackPlugin({
-      hash: false,
-      template: resolve('../public/index.html'),
-      filename: 'index.html'
+    new CleanWebpackPlugin({
+      root: __dirname.replace('scripts', 'umd')
     })
   ]
-});
+};
+
+module.exports = merge(baseConfig, pluginConf);

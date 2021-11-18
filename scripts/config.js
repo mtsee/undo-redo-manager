@@ -12,7 +12,7 @@ module.exports = {
   hash: '.[hash:8]', // 是否开启hash配置
   devServer: {
     host: '127.0.0.1', // internalIp.v4.sync(),
-    port: 9900,
+    port: 9901,
     inline: true,
     hot: true,
     compress: true,

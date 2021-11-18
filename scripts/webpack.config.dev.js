@@ -1,5 +1,5 @@
 const { resolve, srcPath, devServer, version, hash } = require('./config');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
@@ -40,6 +40,14 @@ module.exports = merge(baseConfig, {
     ]
   },
   devtool: 'source-map',
-  plugins: [new webpack.NoEmitOnErrorsPlugin(), new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: resolve('../public/index.html'),
+      filename: 'index.html'
+    })
+  ],
   devServer
 });

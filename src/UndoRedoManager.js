@@ -2,7 +2,7 @@ export default class UndoRedoManager {
   constructor(options) {
     this.options = Object.assign(
       {
-        limit: 10, // 最大记录50次
+        limit: 50, // 最大记录50次
         onChange: () => {}
       },
       options || {}
@@ -52,6 +52,7 @@ export default class UndoRedoManager {
     }
     this._stacks.push(data);
     this.options.onChange(this);
+    return this.current;
   }
 
   undo() {
@@ -59,10 +60,9 @@ export default class UndoRedoManager {
       console.warn('not can undo');
       return;
     }
-    if (this._pointer > 0) {
-      this._pointer--;
-    }
+    this._pointer--;
     this.options.onChange(this);
+    return this.current;
   }
 
   redo() {
@@ -70,9 +70,8 @@ export default class UndoRedoManager {
       console.warn('not can redo');
       return;
     }
-    if (this._pointer < this._stacks.length) {
-      this._pointer++;
-    }
+    this._pointer++;
     this.options.onChange(this);
+    return this.current;
   }
 }

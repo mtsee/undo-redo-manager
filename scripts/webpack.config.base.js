@@ -1,5 +1,5 @@
-const { distPath, resolve, srcPath, version, hash } = require('./config');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { resolve, srcPath, version, hash } = require('./config');
+
 // webpack 配置文档
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
@@ -49,12 +49,5 @@ module.exports = {
       // }
     ]
   },
-  plugins: [
-    new CaseSensitivePathsPlugin(),
-    new HtmlWebpackPlugin({
-      hash: false,
-      template: resolve('../public/index.html'),
-      filename: 'index.html'
-    })
-  ]
+  plugins: [new CaseSensitivePathsPlugin()]
 };

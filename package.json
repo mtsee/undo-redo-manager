@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "webpack-cli serve --config scripts/webpack.config.dev.js --open",
+    "build:umd": "webpack --config scripts/webpack.config.umd.js --progress",
     "build": "webpack --config scripts/webpack.config.prod.js --progress"
   },
   "repository": {

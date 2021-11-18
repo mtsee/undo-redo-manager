@@ -1,0 +1,17 @@
+{
+  "name": "undo-redo-manager2",
+  "author": "Mantou",
+  "version": "1.0.4",
+  "description": "undo redo simple",
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": [
+    "undo",
+    "redo",
+    "history"
+  ],
+  "homepage": "https://github.com/mtsee/undo-redo-manager",
+  "directories": {
+    "example": "https://h5ds-cdn.oss-cn-beijing.aliyuncs.com/www/redo_undo/index.html"
+  }
+}
