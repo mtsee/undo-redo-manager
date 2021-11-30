@@ -41,6 +41,9 @@ export default class UndoRedoManager {
   }
 
   add(data) {
+    if (!this._stacks) {
+      return;
+    }
     // 应该删除指针之后的记录
     this._stacks.splice(this._pointer + 1, this._stacks.length - this._pointer - 1);
     if (this._stacks.length === this.options.limit) {

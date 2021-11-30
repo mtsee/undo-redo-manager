@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import UndoRedoManager from './UndoRedoManager';
 import { Space, Button, Toast, Tag } from '@douyinfe/semi-ui';
-import dayjs from 'dayjs';
 
 export default function App() {
   const [target, setTarget] = useState();
   const [arr, setArr] = useState([]);
   const manager = useRef();
+  const num = useRef(0);
 
   useEffect(() => {
     manager.current = new UndoRedoManager({
+      limit: 10,
       onChange: m => {
         console.log('-->', m.current);
         setTarget(m.current?.time);
@@ -37,8 +38,9 @@ export default function App() {
   }
 
   function onAdd() {
+    num.current++;
     const data = {
-      time: dayjs().format('hh:mm:ss-SSS')
+      time: num.current
     };
     manager.current.add(data);
   }
@@ -50,7 +52,7 @@ export default function App() {
           {arr.map(d => {
             return (
               <Tag key={d.time} color="blue" type={target === d.time ? 'solid' : 'light'}>
-                {d.time}
+                history_{d.time}
               </Tag>
             );
           })}
